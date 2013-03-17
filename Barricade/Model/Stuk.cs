@@ -9,4 +9,21 @@ namespace BarricadeSpel.Model
     class Stuk
     {
     }
+
+    class Speler : Stuk
+    {
+        public char Kleur { get; set; }
+        public Speler()
+        {
+
+        }
+    }
+
+    class Barricade : Stuk
+    {
+        public Barricade()
+        {
+
+        }
+    }
 }
