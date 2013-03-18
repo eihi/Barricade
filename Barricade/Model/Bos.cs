@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace BarricadeSpel.Model
 {
-    abstract class Stuk
+    class Bos : Vak
     {
+        public List<Speler> Spelers;
+
+        public Bos()
+        {
+        }
     }
 }

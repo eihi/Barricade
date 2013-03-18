@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BarricadeSpel.Model
 {
-    abstract class Stuk
+    class Barricade : Stuk
     {
+        public Barricade()
+        {
+
+        }
     }
 }

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace BarricadeSpel.Model
 {
-    abstract class Stuk
+    class Doel : Vak
     {
+        public Doel()
+        {
+        }
     }
 }

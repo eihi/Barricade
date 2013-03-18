@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BarricadeSpel.Model
 {
-    abstract class Stuk
+    class Splitsing : Vak
     {
+        public Vak split;   // split vak in list
+        public Splitsing()
+        {
+        }
     }
 }
