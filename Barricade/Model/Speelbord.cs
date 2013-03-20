@@ -10,13 +10,17 @@ namespace BarricadeSpel.Model
 {
     class Speelbord
     {
-        public Speelbord(List<string> yx)
+        public List<string> yx { get; set; }
+
+        public Speelbord(List<string> bordyx)
         {
-            // Test: uitlezen van char test print < uit originele bord in output venster
+            // Stap 1: bordyx opslaan in yx List
+            yx = bordyx;
+            
+            // Test: uitlezen van char test print "<" uit originele bord in output venster
             Console.WriteLine(yx[0][36]); 
             
-            // Stap 1: maak een linkedlist van Vak objecten
-            
+            // Stap 2: maak een linkedlist van Vak objecten
 
         }
     }
