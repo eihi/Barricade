@@ -9,7 +9,7 @@
                 <MenuItem Header="Nieuw spel" Click="NieuwSpel"/>
                 <Separator/>
                 <MenuItem Header="Save"/>
-                <MenuItem Header="Load"/>
+                <MenuItem Header="Load" Click="LaadSpel"/>
                 <Separator/>
                 <MenuItem Header="Close"/>
             </MenuItem>

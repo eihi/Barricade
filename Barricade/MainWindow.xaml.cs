@@ -22,6 +22,7 @@ namespace BarricadeSpel
     /// </summary>
     public partial class MainWindow : Window
     {
+        Spel Spel;
         public MainController mc = new MainController();
 
         public MainWindow()
@@ -31,7 +32,12 @@ namespace BarricadeSpel
 
         private void NieuwSpel(object sender, RoutedEventArgs e)
         {
-            Spel Spel = new Spel(mc.FileReader(mc.OpenFile(".bord", "Barricade bord (.bord)|*.bord", "\\Barricade")));
+            Spel = new Spel(mc.FileReader(mc.OpenFile(".bord", "Barricade bord (.bord)|*.bord", "\\Barricade")));
+        }
+
+        private void LaadSpel(object sender, RoutedEventArgs e)
+        {
+            Spel = new Spel(mc.FileReader(mc.OpenFile(".save", "Barricade save (.save)|*.save", "\\Savestates"))); // werkt niet opent borden folder ipv Savestates :(
         }
     }
 }
