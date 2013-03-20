@@ -31,7 +31,7 @@ namespace BarricadeSpel
 
         private void NieuwSpel(object sender, RoutedEventArgs e)
         {
-            Spel Spel = new Spel(mc.FileReader(mc.OpenFile()));
+            Spel Spel = new Spel(mc.FileReader(mc.OpenFile(".bord", "Barricade bord (.bord)|*.bord", "\\Barricade")));
         }
     }
 }

@@ -15,13 +15,13 @@ namespace BarricadeSpel.Controller
             
         }
 
-        public string OpenFile()
+        public string OpenFile(string extensie, string filter, string pad)
         {
             // Vraag om een spelbestand
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.DefaultExt = ".bord";
-            dialog.Filter = "Barricade bord (.bord)|*.bord";
-            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Barricade";
+            dialog.DefaultExt = extensie;
+            dialog.Filter = filter;
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @pad;
             if (dialog.ShowDialog() != true)
                 Environment.Exit(0);
 
