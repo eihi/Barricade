@@ -7,7 +7,7 @@
     <ProjectGuid>{546FBC6F-A8FD-4993-883E-796BB3F9CAA0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Barricade</RootNamespace>
+    <RootNamespace>BarricadeSpel</RootNamespace>
     <AssemblyName>Barricade</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -53,6 +53,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Barricade.cs" />
+    <Compile Include="Model\BarricadeVak.cs" />
+    <Compile Include="Model\Bos.cs" />
+    <Compile Include="Model\Dobbelsteen.cs" />
+    <Compile Include="Model\Doel.cs" />
+    <Compile Include="Controller\MainController.cs" />
+    <Compile Include="Model\Rust.cs" />
+    <Compile Include="Model\Speelbord.cs" />
+    <Compile Include="Model\Spel.cs" />
+    <Compile Include="Model\Speler.cs" />
+    <Compile Include="Model\Splitsing.cs" />
+    <Compile Include="Model\Start.cs" />
+    <Compile Include="Model\Stuk.cs" />
+    <Compile Include="Model\Vak.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -92,6 +106,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Borden\" />
+    <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

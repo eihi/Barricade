@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace BarricadeSpel.Model
 {
-    class Speler : Stuk
+    class SpelerStuk : Stuk
     {
         public char Kleur { get; set; }     // speler kleur
         public string Naam { get; set; }    // speler naam
 
-        public Speler()
+        public SpelerStuk(char _kleur)
         {
-
+            Kleur = _kleur;
         }
     }
 }

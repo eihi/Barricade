@@ -2,7 +2,24 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
+    
+    <DockPanel HorizontalAlignment="Left" Height="319" LastChildFill="False" VerticalAlignment="Top" Width="517">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Nieuw spel" Click="NieuwSpel"/>
+                <Separator/>
+                <MenuItem Header="Save"/>
+                <MenuItem Header="Load"/>
+                <Separator/>
+                <MenuItem Header="Close"/>
+            </MenuItem>
+        </Menu>
         
-    </Grid>
+        <Grid x:Name="ContentPane">
+            
+        </Grid>
+        
+    </DockPanel>
+
+    
 </Window>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Barricade", "Barricade\Barricade.csproj", "{546FBC6F-A8FD-4993-883E-796BB3F9CAA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarricadeSpel", "Barricade\BarricadeSpel.csproj", "{546FBC6F-A8FD-4993-883E-796BB3F9CAA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,47 +9,15 @@ namespace BarricadeSpel
 {
     abstract class Vak
     {
-        public Stuk Stuk;       // speler of barricade
-        public Vak next;        // next vak in list
-        public Vak previous;    // previous vak in list
-        public bool InhetDorp;
-    }
+        public Stuk Stuk;               // speler of barricade
+        public Vak next;                // next vak in list
+        public Vak previous;            // previous vak in list
+        public bool LoopVak = true;     // als true kan er op de vak gelopen worden
+        public bool InhetDorp = false;  // als true dan bevindt het stuk zich in het dorp
 
-    class Start : Vak
-    {
-        public Start()
+        public Vak()
         {
-        }
-    }
 
-    class Doel : Vak
-    {
-        public Doel()
-        {
-        }
-    }
-
-    class Splitsing : Vak
-    {
-        public Vak split;   // split vak in list
-        public Splitsing()
-        {
-        }
-    }
-
-    class Bos : Vak
-    {
-        public List<Speler> Spelers;
-
-        public Bos()
-        {
-        }
-    }
-
-    class Rust : Vak
-    {
-        public Rust()
-        {
         }
     }
 }

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BarricadeSpel.Model;
+using BarricadeSpel.Controller;
 
 namespace BarricadeSpel
 {
@@ -20,9 +22,16 @@ namespace BarricadeSpel
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainController mc = new MainController();
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void NieuwSpel(object sender, RoutedEventArgs e)
+        {
+            Spel Spel = new Spel(mc.FileReader(mc.OpenFile()));
         }
     }
 }

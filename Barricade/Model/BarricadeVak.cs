@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BarricadeSpel.Model
 {
-    class Start : Vak
+    class Barricade : Vak
     {
-        public Start()
+        public Barricade()
         {
-            LoopVak = false; // staat standaard op true in superklasse dus moet op false gezet worden
+
         }
     }
 }
