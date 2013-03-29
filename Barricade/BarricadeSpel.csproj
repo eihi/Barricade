@@ -63,7 +63,6 @@
     <Compile Include="Model\Speelbord.cs" />
     <Compile Include="Model\Spel.cs" />
     <Compile Include="Model\Speler.cs" />
-    <Compile Include="Model\Splitsing.cs" />
     <Compile Include="Model\Start.cs" />
     <Compile Include="Model\Stuk.cs" />
     <Compile Include="Model\Vak.cs" />

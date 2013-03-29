@@ -8,5 +8,6 @@ namespace BarricadeSpel.Model
 {
     abstract class Stuk
     {
+        public Vak vak; // vak waar stuk op staat
     }
 }
