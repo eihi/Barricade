@@ -35,7 +35,7 @@ namespace BarricadeSpel.Controller
             List<string> regels = new List<string>();
             while (!f.EndOfStream)
             {
-                string regel = f.ReadLine().TrimEnd();
+                string regel = f.ReadLine();
                 if (regel == "" || regel[0] == ';') continue;
                 regels.Add(regel);
             }
