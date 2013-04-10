@@ -10,14 +10,21 @@ namespace BarricadeSpel.Model
     {
         private Vak[,] State;
         public List<string> bord { get; set; }
+        private int bordHeight { get; set; }
+        private int bordWidth { get; set; }
 
         public Speelbord(List<string> b)
         {
-            State = new Vak[100, 100]; // 2d array maken voor savestate
-            // Stap 1: b opslaan in bord List
+            // b opslaan in bord List
             bord = b;
+
+            // Bepaal dimensies van het bord
+            bordHeight = bord.Count;
+            bordWidth = bord.OrderByDescending(s => s.Length).First().Length;
+
+            // Maak SaveState 2d array van Vak objecten
+            State = new Vak[bordHeight, bordWidth];
             
-            // Stap 2: maak een SaveState 2d array van Vak objecten
             for (int y = 0; y < bord.Count; y++)
             {
                 for (int x = 0; x < bord[y].Length; x++)
@@ -25,26 +32,50 @@ namespace BarricadeSpel.Model
                     if (x % 4 == 0)
                         State[y,x/4] = BepaalVak(y, x);
                 }
-                Console.WriteLine();
             }
-            KoppelVak();
+
+            KoppelVak(); // Connecties maken
             SaveState();
         }
 
         private void SaveState()
         {
             string blok;
-            for (int i = 0; i < 40; i++)
+
+            for (int i = 0; i < bordHeight; i++)
             {
-                //Console.Write(i + " ");
-                for (int j = 0; j < 100; j++)
+                for (int j = 0; j < bordWidth; j++)
                 {
                     if (State[i, j] == null)
                     {
-                        if (i - 1 >= 0 && State[i - 1, j] != null && State[i - 1, j].zuid != null)
+                        if (i - 1 >= 0 && State[i - 1, j] != null && State[i - 1, j].zuid != null) // Eerste verticale connectie
+                        {
                             blok = " |  ";
-                        else
+                        }
+                        else if (i - 1 >= 0 && State[i - 1, j] == null) // Daarop volgende verticale connecties
+                        {
                             blok = "    ";
+
+                            // Is erboven ergens een Vak met een zuid-connectie?
+                            int t = 1;
+
+                            while (i - t >= 0 && State[i - t, j] == null)
+                            {
+                                t++;
+                            }
+
+                            if (t > 1) // Is de while-loop een vak tegen gekomen?
+                            {
+                                if (i - t >= 0 && State[i - t, j] != null && State[i - t, j].zuid != null) // Is dit vak het begin van de connectie?
+                                {
+                                    blok = " |  ";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            blok = "    ";
+                        }
                     }
                     else
                     {
@@ -201,11 +232,12 @@ namespace BarricadeSpel.Model
 
         public void KoppelVak() // Controleren op connecties
         {
-            // Horizontaal
-            for (int i = 0 ; i < bord.Count; i++)
+
+            for (int i = 0 ; i < bordHeight; i++)
             {
                 for (int j = 0 ; j < bord[i].Length; j++)
                 {
+                    // Horizontaal
                     if (State[i, j] != null && State[i, j + 1] != null)         // controleren of de vakken die gekoppeld moeten worden niet leeg zijn
                     {
                         if ((j * 4) + 3 > 0 && (j * 4) + 3 < bord[i].Length)    // controleren of de waarden binnen de bounds blijft
@@ -217,82 +249,51 @@ namespace BarricadeSpel.Model
                             }
                         }
                     }
-                }
-            }
 
-            // Verticaal
-            for (int i = 0; i < bord.Count; i++) // Verticale loop
-            {
-                for (int j = 0; j < bord[i].Length; j++) // Horizontale loop
-                {
-                    if (i >= 0 && i < bord.Count) // Verticale bounds
+                    // Verticaal
+                    if (i >= 0 && i < bordHeight) // Verticale bounds
                     {
                         if ((j * 4) + 1 >= 0 && (j * 4) + 1 < bord[i].Length) // Horizontale bounds
                         {
                             // Is er een verticale connectie?
-                            if ((i + 1) < bord.Count && bord[i + 1][(j * 4) + 1] == '|')            // controleren op verticale link
+                            if ((i + 1) < bordHeight)
                             {
-                                if (State[i, j] != null && State[i + 2, j] != null)
+                                if (bord[i + 1][(j * 4) + 1] == '|') // controleren op verticale link
                                 {
-                                    State[i, j].zuid = State[i + 2, j];
-                                    State[i + 2, j].noord = State[i, j];
-                                    Console.WriteLine(i + 1 + " " + ((j * 4) + 1) + "|");
-                                }
-                                else // Zijn er meerdere connecties (verlengd / bos)
-                                {
-                                    int t = 1;
-
-                                    do
+                                    if (State[i, j] != null && State[i + 2, j] != null)
                                     {
-                                        t++;
+                                        State[i, j].zuid = State[i + 2, j];
+                                        State[i + 2, j].noord = State[i, j];
+                                        //Console.WriteLine(i + 1 + " " + ((j * 4) + 1) + "|");
                                     }
-                                    while (i + t < bord.Count && bord[i + t][(j * 4) + 1] == '|');
-
-                                    if (t > 2)
+                                    else // Zijn er meerdere connecties (verlengd / bos)
                                     {
-                                        Console.WriteLine("T: " + t);
+                                        int t = 1;
 
-                                        //State[i, j].zuid = State[i + t, j];
-                                        //State[i + t, j].noord = State[i, j];
-                                        //Console.WriteLine(i + t + " " + ((j * 4) + 1) + "|*");
+                                        do
+                                        {
+                                            t++;
+                                        }
+                                        while (i + t < bordHeight && bord[i + t][(j * 4) + 1] == '|');
+
+                                        if (t > 2)
+                                        {
+                                            if (State[i + t, j].noord == null)
+                                            {
+                                                State[i, j].zuid = State[i + t, j];
+                                                State[i + t, j].noord = State[i, j];
+                                                //Console.WriteLine(i + t + " " + ((j * 4) + 1) + "|*");
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
-            /*
-            if (true)
-            {
-                if ((j * 4) + 1 >= 0 && (j * 4) + 1 < bord[i].Length)   // controleren of de waarden binnen de bounds blijven
-                {
-                    if (i >= 0 && i < bord.Count)                       // controleren of de waarden binnen de bounds blijven
-                    {
-                        if (bord[i + 1][(j * 4) + 1] == '|')            // controleren op verticale link
-                        {
-                            if (i + 2 < bord.Count && bord[i + 2][(j * 4) + 1] == '|')
-                            {
-                                //State[i, j].zuid = State[i + 4, j];
-                                //State[i + 4, j].noord = State[i, j];
-                                //Console.WriteLine(i + 1 + " " + ((j * 4) + 1) + "|*");
-                            }
-                            else
-                            {
-                                if (State[i, j] != null && State[i + 2, j] != null)
-                                {
-                                    State[i, j].zuid = State[i + 2, j];
-                                    State[i + 2, j].noord = State[i, j];
-                                    Console.WriteLine(i + 1 + " " + ((j * 4) + 1) + "|");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            */
+            }            
 
-            
+
         }
     }
 }
