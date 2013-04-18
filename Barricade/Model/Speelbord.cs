@@ -13,6 +13,8 @@ namespace BarricadeSpel.Model
         private int bordHeight { get; set; }
         private int bordWidth { get; set; }
 
+        private string ihd, bm;
+
         public Speelbord(List<string> b)
         {
             // b opslaan in bord List
@@ -48,13 +50,36 @@ namespace BarricadeSpel.Model
                 {
                     if (State[i, j] == null)
                     {
+                        if (j == 0)
+                        {
+                            
+                            int k = j;
+                            while (k < bordWidth && State[i, k] == null)
+                                k++;
+                            if (k < bordWidth && State[i, k].InhetDorp == true)
+                                ihd = "1";
+                            else
+                                ihd = "0";
+                            if (k < bordWidth && State[i, k].BarricadeMag == true)
+                                bm = "B";
+                            else
+                                bm = "-";
+                            if (k < bordWidth && State[i, k].BarricadeMag == true && State[i, k].InhetDorp == true)
+                                blok = ihd + bm + "  ";
+                        }
+                        else
+                            blok = "    ";
+
                         if (i - 1 >= 0 && State[i - 1, j] != null && State[i - 1, j].zuid != null) // Eerste verticale connectie
                         {
                             blok = " |  ";
                         }
                         else if (i - 1 >= 0 && State[i - 1, j] == null) // Daarop volgende verticale connecties
                         {
-                            blok = "    ";
+                            if (j == 0)
+                                blok = ihd + bm + "  ";
+                            else
+                                blok = "    ";
 
                             // Is erboven ergens een Vak met een zuid-connectie?
                             int t = 1;
@@ -74,7 +99,10 @@ namespace BarricadeSpel.Model
                         }
                         else
                         {
-                            blok = "    ";
+                            if (j == 0)
+                                blok = ihd + bm + "  ";
+                            else
+                                blok = "    ";
                         }
                     }
                     else
@@ -156,23 +184,37 @@ namespace BarricadeSpel.Model
                         switch (bord[y][x + 1])
                         {
                             case ' ':
-                                return new Doel();
+                                vak = new Doel();
+                                vak.BarricadeMag = BepaalBarricadeMag(y);
+                                vak.InhetDorp = BepaalInHetDorp(y);
+                                return vak;
                             case '1':
-                                return new Bos();;
+                                vak = new Bos();
+                                vak.BarricadeMag = BepaalBarricadeMag(y);
+                                vak.InhetDorp = BepaalInHetDorp(y);
+                                return vak;
                             case 'R':
                                 vak = new Start();
+                                vak.BarricadeMag = BepaalBarricadeMag(y);
+                                vak.InhetDorp = BepaalInHetDorp(y);
                                 vak.Stuk = new SpelerStuk('R');
                                 return vak;
                             case 'G':
                                 vak = new Start();
+                                vak.BarricadeMag = BepaalBarricadeMag(y);
+                                vak.InhetDorp = BepaalInHetDorp(y);
                                 vak.Stuk = new SpelerStuk('G');
                                 return vak;
                             case 'Y':
                                 vak = new Start();
+                                vak.BarricadeMag = BepaalBarricadeMag(y);
+                                vak.InhetDorp = BepaalInHetDorp(y);
                                 vak.Stuk = new SpelerStuk('Y');
                                 return vak;
                             case 'B':
                                 vak = new Start();
+                                vak.BarricadeMag = BepaalBarricadeMag(y);
+                                vak.InhetDorp = BepaalInHetDorp(y);
                                 vak.Stuk = new SpelerStuk('B');
                                 return vak;
                             case 'r':
@@ -204,33 +246,59 @@ namespace BarricadeSpel.Model
             return null;
         }
 
+        private bool BepaalInHetDorp(int y)
+        {
+            if (bord[y][0] == '1')
+                return true;
+            return false;
+        }
+
+        private bool BepaalBarricadeMag(int y)
+        {
+            if (bord[y][1] == 'B')
+                return true;
+            return false;
+        }
+
         private Vak BepaalStuk(Vak v, int y, int x)
         {
             Vak vak = v;
             switch (bord[y][x + 1])
             {
                 case ' ':
+                    vak.BarricadeMag = BepaalBarricadeMag(y);
+                    vak.InhetDorp = BepaalInHetDorp(y);
                     return vak;
                 case '*':
+                    vak.BarricadeMag = BepaalBarricadeMag(y);
+                    vak.InhetDorp = BepaalInHetDorp(y);
                     vak.Stuk = new BarricadeStuk();
                     return vak;
                 case 'R':
+                    vak.BarricadeMag = BepaalBarricadeMag(y);
+                    vak.InhetDorp = BepaalInHetDorp(y);
                     vak.Stuk = new SpelerStuk(bord[y][x + 1]);
                     return vak;
                 case 'G':
+                    vak.BarricadeMag = BepaalBarricadeMag(y);
+                    vak.InhetDorp = BepaalInHetDorp(y);
                     vak.Stuk = new SpelerStuk(bord[y][x + 1]);
                     return vak;
                 case 'Y':
+                    vak.BarricadeMag = BepaalBarricadeMag(y);
+                    vak.InhetDorp = BepaalInHetDorp(y);
                     vak.Stuk = new SpelerStuk(bord[y][x + 1]);
                     return vak;
                 case 'B':
+                    vak.BarricadeMag = BepaalBarricadeMag(y);
+                    vak.InhetDorp = BepaalInHetDorp(y);
                     vak.Stuk = new SpelerStuk(bord[y][x + 1]);
                     return vak;
             }
             return vak;
         }
 
-        public void KoppelVak() // Controleren op connecties
+        private void KoppelVak() // Controleren op connecties
         {
 
             for (int i = 0 ; i < bordHeight; i++)

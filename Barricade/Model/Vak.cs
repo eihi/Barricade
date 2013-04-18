@@ -16,8 +16,9 @@ namespace BarricadeSpel.Model
         public Vak oost;                // oost vak in list
         public Vak zuid;                // zuid vak in list
         public Vak west;                // west vak in list
-        public bool LoopVak = true;     // als true kan er op de vak gelopen worden
-        public bool InhetDorp = false;  // als true dan bevindt het stuk zich in het dorp
+        public bool LoopVak;            // als true kan er op de vak gelopen worden
+        public bool InhetDorp;          // als true dan bevindt het stuk zich in het dorp
+        public bool BarricadeMag;       // als true mag er een barricade geplaatst worden
 
         public Vak()
         {
